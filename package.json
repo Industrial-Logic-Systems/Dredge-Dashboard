@@ -3,11 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@reduxjs/toolkit": "^1.6.2",
-    "axios": "^0.24.0",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "babel-eslint": "^10.1.0",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-plugin-flowtype": "^5.10.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^24.7.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-testing-library": "^3.10.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+<<<<<<< HEAD
     "react-redux": "^7.2.6",
+=======
+>>>>>>> 86a9ab1 (update packages)
     "react-scripts": "^4.0.3"
   },
   "scripts": {
