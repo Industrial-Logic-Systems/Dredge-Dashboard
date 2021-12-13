@@ -3,6 +3,7 @@
   height: 60px;
 }
 
-#map {
-  height: 180px;
+.leaflet-container {
+  width: 500px;
+  height: 500px;
 }
