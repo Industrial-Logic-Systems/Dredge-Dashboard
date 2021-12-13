@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 const headersData = [
   {
-    label: "Test",
-    href: "/test",
+    label: "Dredge Test",
+    href: "/dredge-test",
   },
 ];
 
