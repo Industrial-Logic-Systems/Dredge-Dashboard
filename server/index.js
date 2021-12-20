@@ -1,11 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql");
-const port = 4000;
+
+const PORT = 4000;
+const DEFAULT_LIMIT = 50;
 
 const app = express();
-
-const SELECT_ALL_PRODUCTS_QUERY = "SELECT * FROM products";
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -38,7 +38,7 @@ app.get("/dredges", (req, res) => {
 });
 
 app.get("/dredge", (req, res) => {
-  const { name, limit = 10 } = req.query;
+  const { name, limit = DEFAULT_LIMIT } = req.query;
   connection.query(
     `SELECT * FROM work_event where dredge="${name}" limit ${limit}`,
     (err, results) => {
@@ -53,7 +53,7 @@ app.get("/dredge", (req, res) => {
 });
 
 app.get("/dredge_extra", (req, res) => {
-  const { name, limit = 10 } = req.query;
+  const { name, limit = DEFAULT_LIMIT } = req.query;
   var extra_name = (name.split(" ").join("_") + "_extra").toLowerCase();
 
   connection.query(
@@ -69,6 +69,6 @@ app.get("/dredge_extra", (req, res) => {
   );
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Example app listening at http://localhost:${PORT}`);
 });
