@@ -5,7 +5,10 @@ const mysql = require("mysql");
 const PORT = 4000;
 const DEFAULT_LIMIT = 50;
 
+const path = __dirname + "/views/";
 const app = express();
+
+app.use(express.static(path));
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -23,7 +26,7 @@ connection.connect((err) => {
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("goto /products to see products");
+  res.sendFile(path + "index.html");
 });
 
 app.get("/dredges", (req, res) => {

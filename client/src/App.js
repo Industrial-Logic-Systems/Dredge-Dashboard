@@ -3,7 +3,7 @@ import "./styles.css";
 import Header from "./Header";
 import { Routes, Route } from "react-router-dom";
 
-import DredgeTest from "./dredgeTest";
+import DredgeTest from "./components/dredgeTest";
 import Home from "./Home";
 
 const App = () => {
