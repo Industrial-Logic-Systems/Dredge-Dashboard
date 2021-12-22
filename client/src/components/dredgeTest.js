@@ -1,34 +1,93 @@
-import React, { useState } from "react";
-import { Button } from "@mui/material";
-
-import NumberDisplay from "./displays/NumberDisplay";
+import React, { useEffect, useState } from "react";
 import Map from "./displays/Map";
-import LineGraph from "./displays/LineGraph";
+//import LineGraph from "./displays/LineGraph";
+import { useDispatch, useSelector } from "react-redux";
+import { getDredge } from "../redux/ducks/dredgeSlice";
+import TrendLineDisplay from "./displays/TrendLineDisplay";
 
 const DredgeTest = () => {
-  const [value, setValue] = useState(0);
+  const DREDGE_NAME = "Dredge ILS";
+  const dispatch = useDispatch();
+  const dredge = useSelector((state) => state.dredge);
+
+  const [positions, setPositions] = useState([[0, 0]]);
+  const [trendGraphs, setTrendGraphs] = useState([]);
+
+  useEffect(() => {
+    dispatch(getDredge({ name: DREDGE_NAME, limit: 50 }));
+  }, [dispatch]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("Updating");
+      dispatch(getDredge({ name: DREDGE_NAME, limit: 50 }));
+    }, 10000);
+    return () => clearInterval(interval);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (dredge.data.constructor === Array) {
+      const positions = dredge.data.map((data) => [
+        data.ch_latitude,
+        data.ch_longitude,
+      ]);
+      positions.reverse();
+      setPositions(positions);
+
+      const graphData = dredge.data.map((data) => {
+        return {
+          time: data.msg_time,
+          vert: data.vert_correction,
+          depth: data.ch_depth,
+          slurry_velocity: data.slurry_velocity,
+          slurry_density: data.slurry_density,
+          vacuum: data.vacuum,
+        };
+      });
+      graphData.reverse();
+      setTrendGraphs(graphData);
+    }
+  }, [dredge.data]);
+
   return (
     <div>
       <h1>Dredge Test</h1>
-      <NumberDisplay value={value} name="Value" suffix="v" />
-      <Button onClick={() => setValue(value + 1)}>Increment</Button>
-      <Button onClick={() => setValue(value - 1)}>Decrement</Button>
-      <Map
-        positions={[
-          [33.860121, -117.819219],
-          [33.860531, -117.819629],
-          [33.860731, -117.819429],
-        ]}
+      <TrendLineDisplay
+        name={"Vacuum"}
+        data={trendGraphs}
+        x_axis={"time"}
+        y_axis={"vacuum"}
+        suffix={"IWC"}
       />
-      <LineGraph
-        x_axis={"x"}
-        y_axis={"y"}
-        data={[
-          { x: 10, y: 15 },
-          { x: 7, y: 3 },
-          { x: 8, y: 4 },
-        ]}
+      <TrendLineDisplay
+        name={"Slurry Density"}
+        data={trendGraphs}
+        x_axis={"time"}
+        y_axis={"slurry_density"}
+        suffix={"sg"}
       />
+      <TrendLineDisplay
+        name={"Slurry Velocity"}
+        data={trendGraphs}
+        x_axis={"time"}
+        y_axis={"slurry_velocity"}
+        suffix={"Ft/s"}
+      />
+      <TrendLineDisplay
+        name={"Vertical Correction"}
+        data={trendGraphs}
+        x_axis={"time"}
+        y_axis={"vert"}
+        suffix={"Ft"}
+      />
+      <TrendLineDisplay
+        name={"Depth"}
+        data={trendGraphs}
+        x_axis={"time"}
+        y_axis={"depth"}
+        suffix={"Ft"}
+      />
+      <Map positions={positions} />
     </div>
   );
 };

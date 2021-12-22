@@ -13,14 +13,14 @@ const LineGraph = (props) => {
 
   return (
     <>
-      <ResponsiveContainer aspect={3}>
+      <ResponsiveContainer>
         <LineChart
           data={data}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="5 5" />
-          <XAxis dataKey={x_axis} interval={"preserveStartEnd"}></XAxis>
-          <YAxis />
+          <XAxis dataKey={x_axis} hide />
+          <YAxis orientation={"right"} />
           <Tooltip />
           <Line dataKey={y_axis} type="monotone" stroke="black" />
         </LineChart>
