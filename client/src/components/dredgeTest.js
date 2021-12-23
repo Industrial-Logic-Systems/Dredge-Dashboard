@@ -52,41 +52,61 @@ const DredgeTest = () => {
   return (
     <div>
       <h1>Dredge Test</h1>
-      <TrendLineDisplay
-        name={"Vacuum"}
-        data={trendGraphs}
-        x_axis={"time"}
-        y_axis={"vacuum"}
-        suffix={"IWC"}
-      />
-      <TrendLineDisplay
-        name={"Slurry Density"}
-        data={trendGraphs}
-        x_axis={"time"}
-        y_axis={"slurry_density"}
-        suffix={"sg"}
-      />
-      <TrendLineDisplay
-        name={"Slurry Velocity"}
-        data={trendGraphs}
-        x_axis={"time"}
-        y_axis={"slurry_velocity"}
-        suffix={"Ft/s"}
-      />
-      <TrendLineDisplay
-        name={"Vertical Correction"}
-        data={trendGraphs}
-        x_axis={"time"}
-        y_axis={"vert"}
-        suffix={"Ft"}
-      />
-      <TrendLineDisplay
-        name={"Depth"}
-        data={trendGraphs}
-        x_axis={"time"}
-        y_axis={"depth"}
-        suffix={"Ft"}
-      />
+      <div className="row">
+        <div className="column">
+          <TrendLineDisplay
+            name={"Vacuum"}
+            data={trendGraphs}
+            x_axis={"time"}
+            y_axis={"vacuum"}
+            suffix={"IWC"}
+          />
+        </div>
+        <div className="column">
+          <TrendLineDisplay
+            name={"Slurry Density"}
+            data={trendGraphs}
+            x_axis={"time"}
+            y_axis={"slurry_density"}
+            suffix={"sg"}
+          />
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="column">
+          <TrendLineDisplay
+            name={"Slurry Velocity"}
+            data={trendGraphs}
+            x_axis={"time"}
+            y_axis={"slurry_velocity"}
+            suffix={"Ft/s"}
+          />
+        </div>
+        <div className="column">
+          <TrendLineDisplay
+            name={"Vertical Correction"}
+            data={trendGraphs}
+            x_axis={"time"}
+            y_axis={"vert"}
+            suffix={"Ft"}
+          />
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="column">
+          <TrendLineDisplay
+            name={"Depth"}
+            data={trendGraphs}
+            x_axis={"time"}
+            y_axis={"depth"}
+            suffix={"Ft"}
+          />
+        </div>
+        <div className="column"></div>
+      </div>
+
       <Map positions={positions} />
     </div>
   );
