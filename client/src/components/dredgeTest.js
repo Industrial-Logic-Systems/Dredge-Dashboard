@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Map from "./displays/Map";
-//import LineGraph from "./displays/LineGraph";
 import { useDispatch, useSelector } from "react-redux";
 import { getDredge } from "../redux/ducks/dredgeSlice";
 import TrendLineDisplay from "./displays/TrendLineDisplay";
+import MessageListBox from "./displays/MessageListBox";
 
 const DredgeTest = () => {
   const DREDGE_NAME = "Dredge ILS";
@@ -54,18 +54,17 @@ const DredgeTest = () => {
     if (dredge.non_eff.constructor === Array) {
       const nonEffData = dredge.non_eff.map((non_eff) => {
         return {
-          msgStart: Date.parse(non_eff.msgStart),
-          msgEnd: Date.parse(non_eff.msgEnd),
-          func_code: non_eff.function_code,
-          message: non_eff.message,
+          sTime: Date.parse(non_eff.msgStart),
+          eTime: Date.parse(non_eff.msgEnd),
+          fCode: non_eff.function_code,
+          msg: non_eff.message,
+          id: non_eff.id,
         };
       });
       nonEffData.reverse();
       setNonEff(nonEffData);
     }
   }, [dredge.non_eff]);
-
-  console.log(nonEff);
 
   return (
     <div>
@@ -124,7 +123,7 @@ const DredgeTest = () => {
         </div>
         <div className="column"></div>
       </div>
-
+      <MessageListBox data={nonEff} />
       <Map positions={positions} />
     </div>
   );
