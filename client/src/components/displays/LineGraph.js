@@ -10,7 +10,7 @@ import {
 import moment from "moment";
 
 const LineGraph = (props) => {
-  const { x_axis, y_axis, data } = props;
+  const { x_axis, y_axis, data, min = "dataMin", max = "dataMax" } = props;
 
   return (
     <>
@@ -26,13 +26,18 @@ const LineGraph = (props) => {
             domain={[data.at(0).time, data.at(-1).time]}
             type="number"
           />
-          <YAxis orientation={"right"} />
+          <YAxis orientation={"right"} domain={[min, max]} />
           <Tooltip
             labelFormatter={(timeStr) =>
               moment.utc(timeStr).format("MMMM Do YYYY, h:mm:ss a")
             }
           />
-          <Line dataKey={y_axis} type="monotone" stroke="black" />
+          <Line
+            dataKey={y_axis}
+            type="monotone"
+            stroke="black"
+            dot={{ r: 1 }}
+          />
         </LineChart>
       </ResponsiveContainer>
     </>

@@ -11,10 +11,10 @@ import {
 export function* handleGetDredge(action) {
   try {
     const { payload } = action;
-    const { name, datetime } = payload;
-    const response = yield call(requestGetDredgeData, name, datetime);
+    const { name, minutes } = payload;
+    const response = yield call(requestGetDredgeData, name, minutes);
     var { data } = response;
-    const responseExtra = yield call(requestGetDredgeExtra, name, datetime);
+    const responseExtra = yield call(requestGetDredgeExtra, name, minutes);
     var { data: extra_data } = responseExtra;
     const responseNonEff = yield call(requestGetDredgeNonEff, name);
     var { data: non_eff } = responseNonEff;

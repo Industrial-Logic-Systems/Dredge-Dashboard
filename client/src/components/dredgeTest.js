@@ -7,6 +7,8 @@ import MessageListBox from "./displays/MessageListBox";
 
 const DredgeTest = () => {
   const DREDGE_NAME = "Dredge ILS";
+  const MINUTES = 30;
+
   const dispatch = useDispatch();
   const dredge = useSelector((state) => state.dredge);
 
@@ -15,13 +17,13 @@ const DredgeTest = () => {
   const [nonEff, setNonEff] = useState([]);
 
   useEffect(() => {
-    dispatch(getDredge({ name: DREDGE_NAME, limit: 50 }));
+    dispatch(getDredge({ name: DREDGE_NAME, minutes: MINUTES }));
   }, [dispatch]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       console.log("Updating");
-      dispatch(getDredge({ name: DREDGE_NAME, limit: 50 }));
+      dispatch(getDredge({ name: DREDGE_NAME, minutes: MINUTES }));
     }, 10000);
     return () => clearInterval(interval);
   }, [dispatch]);
@@ -77,6 +79,8 @@ const DredgeTest = () => {
             x_axis={"time"}
             y_axis={"vacuum"}
             suffix={"IWC"}
+            min={-15}
+            max={0}
           />
         </div>
         <div className="column">
@@ -86,6 +90,8 @@ const DredgeTest = () => {
             x_axis={"time"}
             y_axis={"slurry_density"}
             suffix={"sg"}
+            min={1}
+            max={1.6}
           />
         </div>
       </div>
@@ -98,6 +104,8 @@ const DredgeTest = () => {
             x_axis={"time"}
             y_axis={"slurry_velocity"}
             suffix={"Ft/s"}
+            min={0}
+            max={30}
           />
         </div>
         <div className="column">
@@ -107,6 +115,8 @@ const DredgeTest = () => {
             x_axis={"time"}
             y_axis={"vert"}
             suffix={"Ft"}
+            min={-10}
+            max={30}
           />
         </div>
       </div>
@@ -119,6 +129,8 @@ const DredgeTest = () => {
             x_axis={"time"}
             y_axis={"depth"}
             suffix={"Ft"}
+            min={-100}
+            max={100}
           />
         </div>
         <div className="column"></div>

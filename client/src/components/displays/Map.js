@@ -1,7 +1,6 @@
+import { MapContainer, TileLayer, Polyline, useMap } from "react-leaflet";
 import "../../../node_modules/leaflet/dist/leaflet.css";
 import "../../styles.css";
-
-import { MapContainer, TileLayer, Polyline, useMap } from "react-leaflet";
 
 function ChangeView({ center, zoom }) {
   const map = useMap();

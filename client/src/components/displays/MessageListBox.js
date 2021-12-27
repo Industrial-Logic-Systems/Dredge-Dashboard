@@ -33,12 +33,12 @@ const columns = [
 
 const MessageListBox = (props) => {
   const { data } = props;
-  const [sortModel, setSortModel] = React.useState([
+  const sortModel = [
     {
       field: "sTime",
       sort: "desc",
     },
-  ]);
+  ];
 
   return (
     <div style={{ height: "400px", width: "100%" }}>

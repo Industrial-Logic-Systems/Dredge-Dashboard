@@ -1,11 +1,10 @@
 import axiosConfig from "../../../axiosConfig";
 
-export function requestGetDredgeData(name, datetime) {
-  if (!datetime) {
-    const curD = new Date();
-    const d = new Date(curD.getTime() - 30 * 60000);
-    datetime = d.toISOString().slice(0, 19).replace("T", " ");
-  }
+export function requestGetDredgeData(name, minutes = 30) {
+  const curD = new Date();
+  const d = new Date(curD.getTime() - minutes * 60000);
+  const datetime = d.toISOString().slice(0, 19).replace("T", " ");
+
   return axiosConfig.request({
     method: "get",
     url: `/dredge?name=${name}&datetime=${datetime}`,
@@ -19,12 +18,11 @@ export function requestGetDredgeDataLatest(name) {
   });
 }
 
-export function requestGetDredgeExtra(name, datetime) {
-  if (!datetime) {
-    const curD = new Date();
-    const d = new Date(curD.getTime() - 30 * 60000);
-    datetime = d.toISOString().slice(0, 19).replace("T", " ");
-  }
+export function requestGetDredgeExtra(name, minutes = 30) {
+  const curD = new Date();
+  const d = new Date(curD.getTime() - minutes * 60000);
+  const datetime = d.toISOString().slice(0, 19).replace("T", " ");
+
   return axiosConfig.request({
     method: "get",
     url: `/dredge/extra?name=${name}&datetime=${datetime}`,
