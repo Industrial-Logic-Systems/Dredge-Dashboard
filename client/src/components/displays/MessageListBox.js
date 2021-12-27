@@ -36,7 +36,7 @@ const MessageListBox = (props) => {
   const [sortModel, setSortModel] = React.useState([
     {
       field: "sTime",
-      sort: "asc",
+      sort: "desc",
     },
   ]);
 
