@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const dredgeSlice = createSlice({
   name: "dredge",
-  initialState: { data: {}, extra_data: {} },
+  initialState: { data: {}, extra_data: {}, non_eff: {} },
   reducers: {
     getDredge() {},
     setDredge(state, action) {

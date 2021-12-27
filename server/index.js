@@ -13,6 +13,7 @@ const connection = mysql.createConnection({
   user: "root",
   password: "ils",
   database: "dredges",
+  timezone: "UTC",
 });
 
 connection.connect((err) => {
@@ -36,9 +37,10 @@ app.get("/api/dredges", (req, res) => {
 });
 
 app.get("/api/dredge", (req, res) => {
-  const { name, limit = DEFAULT_LIMIT } = req.query;
+  const { name, datetime } = req.query;
+
   connection.query(
-    `SELECT * FROM work_event where dredge="${name}" ORDER BY msg_time DESC limit ${limit}`,
+    `SELECT * FROM work_event where dredge="${name}" AND msg_time>="${datetime}" ORDER BY msg_time DESC`,
     (err, results) => {
       if (err) {
         return res.send(err);
@@ -50,12 +52,61 @@ app.get("/api/dredge", (req, res) => {
   );
 });
 
-app.get("/api/dredge_extra", (req, res) => {
-  const { name, limit = DEFAULT_LIMIT } = req.query;
+app.get("/api/dredge/latest", (req, res) => {
+  const { name } = req.query;
+
+  connection.query(
+    `SELECT * FROM work_event where dredge="${name}" ORDER BY msg_time DESC LIMIT 1`,
+    (err, results) => {
+      if (err) {
+        return res.send(err);
+      }
+      res.json({
+        data: results,
+      });
+    }
+  );
+});
+
+app.get("/api/dredge/extra", (req, res) => {
+  const { name, datetime } = req.query;
   var extra_name = (name.split(" ").join("_") + "_extra").toLowerCase();
 
   connection.query(
-    `SELECT * FROM ${extra_name} ORDER BY timestamp DESC limit ${limit}`,
+    `SELECT * FROM ${extra_name} WHERE timestamp>="${datetime}" ORDER BY timestamp DESC`,
+    (err, results) => {
+      if (err) {
+        return res.send(err);
+      }
+      res.json({
+        data: results,
+      });
+    }
+  );
+});
+
+app.get("/api/dredge/extra/latest", (req, res) => {
+  const { name } = req.query;
+  var extra_name = (name.split(" ").join("_") + "_extra").toLowerCase();
+
+  connection.query(
+    `SELECT * FROM ${extra_name} ORDER BY timestamp DESC LIMIT 1`,
+    (err, results) => {
+      if (err) {
+        return res.send(err);
+      }
+      res.json({
+        data: results,
+      });
+    }
+  );
+});
+
+app.get("/api/dredge/non_eff", (req, res) => {
+  const { name } = req.query;
+
+  connection.query(
+    `SELECT * FROM ne_event where dredge="${name}" ORDER BY msgStart DESC LIMIT 10`,
     (err, results) => {
       if (err) {
         return res.send(err);

@@ -12,6 +12,7 @@ const DredgeTest = () => {
 
   const [positions, setPositions] = useState([[0, 0]]);
   const [trendGraphs, setTrendGraphs] = useState([]);
+  const [nonEff, setNonEff] = useState([]);
 
   useEffect(() => {
     dispatch(getDredge({ name: DREDGE_NAME, limit: 50 }));
@@ -36,7 +37,7 @@ const DredgeTest = () => {
 
       const graphData = dredge.data.map((data) => {
         return {
-          time: data.msg_time,
+          time: Date.parse(data.msg_time),
           vert: data.vert_correction,
           depth: data.ch_depth,
           slurry_velocity: data.slurry_velocity,
@@ -48,6 +49,23 @@ const DredgeTest = () => {
       setTrendGraphs(graphData);
     }
   }, [dredge.data]);
+
+  useEffect(() => {
+    if (dredge.non_eff.constructor === Array) {
+      const nonEffData = dredge.non_eff.map((non_eff) => {
+        return {
+          msgStart: Date.parse(non_eff.msgStart),
+          msgEnd: Date.parse(non_eff.msgEnd),
+          func_code: non_eff.function_code,
+          message: non_eff.message,
+        };
+      });
+      nonEffData.reverse();
+      setNonEff(nonEffData);
+    }
+  }, [dredge.non_eff]);
+
+  console.log(nonEff);
 
   return (
     <div>
