@@ -1,10 +1,11 @@
 import { getDredge } from "../redux/ducks/dredgeSlice";
-import { Grid, ListItem as Item } from "@mui/material";
+import { Grid, Stack, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import Map from "./displays/Map";
 import MessageListBox from "./displays/MessageListBox";
 import React, { useEffect, useState } from "react";
 import TrendLineDisplay from "./displays/TrendLineDisplay";
+import StateDisplay from "./displays/StateDisplay";
 
 const DredgeTest = () => {
   const DREDGE_NAME = "Dredge ILS";
@@ -16,6 +17,7 @@ const DredgeTest = () => {
   const [positions, setPositions] = useState([[0, 0]]);
   const [trendGraphs, setTrendGraphs] = useState([]);
   const [nonEff, setNonEff] = useState([]);
+  const [extraData, setExtraData] = useState([]);
 
   useEffect(() => {
     dispatch(getDredge({ name: DREDGE_NAME, minutes: MINUTES }));
@@ -69,11 +71,52 @@ const DredgeTest = () => {
     }
   }, [dredge.non_eff]);
 
+  useEffect(() => {
+    if (dredge.extra_data.constructor === Array) {
+      const eData = dredge.extra_data.map((extra_data) => {
+        return {
+          time: Date.parse(extra_data.timestamp),
+          non_eff: extra_data.non_eff,
+          vacuum_break: extra_data.vacuum_break,
+        };
+      });
+      eData.reverse();
+      setExtraData(eData);
+    }
+  }, [dredge.extra_data]);
+
   return (
     <div>
       <h1>Dredge Test</h1>
 
       <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Stack
+            direction="row"
+            spacing={2}
+            justifyContent="center"
+            alignItems="center"
+          >
+            {extraData.length !== 0 ? (
+              <>
+                <StateDisplay
+                  name="Non-Effective"
+                  value={extraData.at(-1).non_eff}
+                  color="success"
+                  secondary_color="error"
+                />
+                <StateDisplay
+                  name="Vacuum"
+                  value={extraData.at(-1).vacuum_break}
+                  color="error"
+                  secondary_color="success"
+                />
+              </>
+            ) : (
+              <CircularProgress />
+            )}
+          </Stack>
+        </Grid>
         <Grid item xs={6}>
           <TrendLineDisplay
             name={"Vacuum"}

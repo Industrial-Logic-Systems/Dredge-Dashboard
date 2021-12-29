@@ -12,13 +12,11 @@ const headersData = [
 
 const useStyles = makeStyles(() => ({
   header: {
-    backgroundColor: "#400CCC",
     paddingRight: "40px",
     paddingLeft: "40px",
   },
   logo: {
     fontWeight: 600,
-    color: "#FFFEFE",
     textAlign: "left",
   },
   menuButton: {
