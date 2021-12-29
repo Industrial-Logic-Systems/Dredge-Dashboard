@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import Map from "./displays/Map";
-import { useDispatch, useSelector } from "react-redux";
 import { getDredge } from "../redux/ducks/dredgeSlice";
-import TrendLineDisplay from "./displays/TrendLineDisplay";
+import { Grid, ListItem as Item } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import Map from "./displays/Map";
 import MessageListBox from "./displays/MessageListBox";
+import React, { useEffect, useState } from "react";
+import TrendLineDisplay from "./displays/TrendLineDisplay";
 
 const DredgeTest = () => {
   const DREDGE_NAME = "Dredge ILS";
@@ -71,8 +72,9 @@ const DredgeTest = () => {
   return (
     <div>
       <h1>Dredge Test</h1>
-      <div className="row">
-        <div className="column">
+
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
           <TrendLineDisplay
             name={"Vacuum"}
             data={trendGraphs}
@@ -82,8 +84,8 @@ const DredgeTest = () => {
             min={-15}
             max={0}
           />
-        </div>
-        <div className="column">
+        </Grid>
+        <Grid item xs={6}>
           <TrendLineDisplay
             name={"Slurry Density"}
             data={trendGraphs}
@@ -93,11 +95,8 @@ const DredgeTest = () => {
             min={1}
             max={1.6}
           />
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="column">
+        </Grid>
+        <Grid item xs={6}>
           <TrendLineDisplay
             name={"Slurry Velocity"}
             data={trendGraphs}
@@ -107,8 +106,8 @@ const DredgeTest = () => {
             min={0}
             max={30}
           />
-        </div>
-        <div className="column">
+        </Grid>
+        <Grid item xs={6}>
           <TrendLineDisplay
             name={"Vertical Correction"}
             data={trendGraphs}
@@ -118,11 +117,8 @@ const DredgeTest = () => {
             min={-10}
             max={30}
           />
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="column">
+        </Grid>
+        <Grid item xs={6}>
           <TrendLineDisplay
             name={"Depth"}
             data={trendGraphs}
@@ -132,11 +128,14 @@ const DredgeTest = () => {
             min={-100}
             max={100}
           />
-        </div>
-        <div className="column"></div>
-      </div>
-      <MessageListBox data={nonEff} />
-      <Map positions={positions} />
+        </Grid>
+        <Grid item xs={12}>
+          <MessageListBox data={nonEff} />
+        </Grid>
+        <Grid item xs={12}>
+          <Map positions={positions} />
+        </Grid>
+      </Grid>
     </div>
   );
 };
