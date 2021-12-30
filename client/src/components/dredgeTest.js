@@ -6,6 +6,7 @@ import MessageListBox from "./displays/MessageListBox";
 import React, { useEffect, useState } from "react";
 import TrendLineDisplay from "./displays/TrendLineDisplay";
 import StateDisplay from "./displays/StateDisplay";
+import CompassDisplay from "./displays/CompassDisplay";
 
 const DredgeTest = () => {
   const DREDGE_NAME = "Dredge ILS";
@@ -48,6 +49,7 @@ const DredgeTest = () => {
           slurry_velocity: data.slurry_velocity,
           slurry_density: data.slurry_density,
           vacuum: data.vacuum,
+          heading: data.ch_heading,
         };
       });
       graphData.reverse();
@@ -171,6 +173,18 @@ const DredgeTest = () => {
             min={-100}
             max={100}
           />
+        </Grid>
+        <Grid item xs={2}>
+          {trendGraphs.length !== 0 ? (
+            <>
+              <CompassDisplay
+                name="Heading"
+                value={trendGraphs.at(-1).heading}
+              />
+            </>
+          ) : (
+            <CircularProgress />
+          )}
         </Grid>
         <Grid item xs={12}>
           <MessageListBox data={nonEff} />

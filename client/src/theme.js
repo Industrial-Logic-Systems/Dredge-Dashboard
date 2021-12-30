@@ -38,6 +38,11 @@ const theme = createTheme({
       main: getCSS("--successMain"),
       dark: getCSS("--successDark"),
     },
+    compass: {
+      back: getCSS("--compassBack"),
+      tick: getCSS("--compassTick"),
+      dial: getCSS("--compassDial"),
+    },
   },
 });
 

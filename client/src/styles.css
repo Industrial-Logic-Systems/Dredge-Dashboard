@@ -28,6 +28,11 @@
   --successLight: #4caf50;
   --successMain: #2e7d32;
   --successDark: #1b5e20;
+
+  /* Compass */
+  --compassBack: #1976d2;
+  --compassTick: #e0e0e0;
+  --compassDial: #1565c0;
 }
 
 * {
@@ -73,4 +78,16 @@ body {
 .MessageListBox {
   height: "400px";
   width: "100%";
+}
+
+.CompassDisplay {
+  color: var(--compassTick);
+}
+
+.CompassDisplay-tick {
+  position: absolute;
+  width: 5px;
+  height: 20px;
+  background-color: var(--compassTick);
+  margin: auto;
 }
