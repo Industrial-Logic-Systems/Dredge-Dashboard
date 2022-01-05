@@ -33,6 +33,9 @@
   --compassBack: #1976d2;
   --compassTick: #e0e0e0;
   --compassDial: #1565c0;
+
+  /* General */
+  --background: #ffffff;
 }
 
 * {
@@ -90,4 +93,68 @@ body {
   height: 20px;
   background-color: var(--compassTick);
   margin: auto;
+}
+
+.GaugeDisplay {
+  width: 100%;
+  max-width: 250px;
+}
+
+.GaugeDisplay-body {
+  width: 100%;
+  height: 0;
+  padding-bottom: 50%;
+  background: var(--compassTick);
+  position: relative;
+  border-top-left-radius: 100% 200%;
+  border-top-right-radius: 100% 200%;
+  overflow: hidden;
+}
+
+.GaugeDisplay-fill {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: inherit;
+  height: 100%;
+  background: var(--primaryMain);
+  transform-origin: center top;
+  transition: transform 0.2s ease-out;
+}
+
+.GaugeDisplay-cover {
+  width: 75%;
+  height: 150%;
+  background: var(--background);
+  border-radius: 50%;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.GaugeDisplay-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.GaugeDisplay-minmax {
+  width: 30px;
+  font-size: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 70%;
+}
+
+.GaugeDisplay-min {
+  position: absolute;
+  left: 0%;
+}
+
+.GaugeDisplay-max {
+  position: absolute;
+  left: 87%;
 }

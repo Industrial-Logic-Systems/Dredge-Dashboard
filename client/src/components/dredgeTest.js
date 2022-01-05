@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import TrendLineDisplay from "./displays/TrendLineDisplay";
 import StateDisplay from "./displays/StateDisplay";
 import CompassDisplay from "./displays/CompassDisplay";
+import GaugeDisplay from "./displays/GaugeDisplay";
 
 const DredgeTest = () => {
   const DREDGE_NAME = "Dredge ILS";
@@ -174,18 +175,43 @@ const DredgeTest = () => {
             max={100}
           />
         </Grid>
-        <Grid item xs={2}>
-          {trendGraphs.length !== 0 ? (
-            <>
-              <CompassDisplay
-                name="Heading"
-                value={trendGraphs.at(-1).heading}
+        {trendGraphs.length !== 0 ? (
+          <>
+            <Grid item xs={2}>
+              <>
+                <CompassDisplay
+                  name="Heading"
+                  value={trendGraphs.at(-1).heading}
+                />
+              </>
+            </Grid>
+            <Grid item xs={2}>
+              <GaugeDisplay
+                name="Outlet PSI"
+                value={50}
+                suffix="PSI"
+                min={0}
+                max={100}
               />
-            </>
-          ) : (
-            <CircularProgress />
-          )}
-        </Grid>
+            </Grid>
+            <Grid item xs={2}>
+              <GaugeDisplay
+                name="Pump RPM"
+                value={500}
+                suffix="RPM"
+                min={0}
+                max={1000}
+              />
+            </Grid>
+          </>
+        ) : (
+          <Grid item xs={6}>
+            <center>
+              <CircularProgress />
+            </center>
+          </Grid>
+        )}
+
         <Grid item xs={12}>
           <MessageListBox data={nonEff} />
         </Grid>
