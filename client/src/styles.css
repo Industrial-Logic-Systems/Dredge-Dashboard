@@ -57,7 +57,7 @@ body {
 }
 
 .map {
-  height: 500px;
+  height: 670px;
 }
 
 .map .leaflet-container {
@@ -96,8 +96,7 @@ body {
 }
 
 .GaugeDisplay {
-  width: 100%;
-  max-width: 250px;
+  width: 250px;
 }
 
 .GaugeDisplay-body {
