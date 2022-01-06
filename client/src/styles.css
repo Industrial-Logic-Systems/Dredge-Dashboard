@@ -96,7 +96,7 @@ body {
 }
 
 .GaugeDisplay {
-  width: 250px;
+  width: 300px;
 }
 
 .GaugeDisplay-body {
@@ -145,15 +145,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 70%;
+  top: 76%;
 }
 
 .GaugeDisplay-min {
   position: absolute;
-  left: 0%;
+  left: 1.5%;
 }
 
 .GaugeDisplay-max {
   position: absolute;
-  left: 87%;
+  left: 88.5%;
 }

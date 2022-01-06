@@ -198,7 +198,7 @@ const DredgeTest = () => {
           </Grid>
           {trendGraphs.length !== 0 ? (
             <>
-              <Grid item xs={6} sm={1.5}>
+              <Grid item xs={12} sm={1.5}>
                 <>
                   <CompassDisplay
                     name="Heading"
@@ -206,19 +206,19 @@ const DredgeTest = () => {
                   />
                 </>
               </Grid>
-              <Grid item xs={6} sm={2.25}>
+              <Grid item xs={12} sm={2.25}>
                 <GaugeDisplay
                   name="Outlet PSI"
-                  value={50}
+                  value={77}
                   suffix="PSI"
                   min={0}
                   max={100}
                 />
               </Grid>
-              <Grid item xs={6} sm={2.25}>
+              <Grid item xs={12} sm={2.25}>
                 <GaugeDisplay
                   name="Pump RPM"
-                  value={500}
+                  value={250}
                   suffix="RPM"
                   min={0}
                   max={1000}
@@ -227,9 +227,7 @@ const DredgeTest = () => {
             </>
           ) : (
             <Grid item xs={6}>
-              <center>
-                <CircularProgress />
-              </center>
+              <CircularProgress />
             </Grid>
           )}
 
