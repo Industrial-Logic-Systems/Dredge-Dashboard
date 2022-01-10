@@ -64,6 +64,8 @@ const DredgeTest = () => {
           slurry_density: data.slurry_density,
           vacuum: data.vacuum,
           heading: data.ch_heading,
+          pump_rpm: data.pump_rpm,
+          outlet_psi: data.outlet_psi,
         };
       });
       graphData.reverse();
@@ -209,7 +211,7 @@ const DredgeTest = () => {
               <Grid item xs={12} sm={2.25}>
                 <GaugeDisplay
                   name="Outlet PSI"
-                  value={77}
+                  value={trendGraphs.at(-1).outlet_psi}
                   suffix="PSI"
                   min={0}
                   max={100}
@@ -218,7 +220,7 @@ const DredgeTest = () => {
               <Grid item xs={12} sm={2.25}>
                 <GaugeDisplay
                   name="Pump RPM"
-                  value={250}
+                  value={trendGraphs.at(-1).pump_rpm}
                   suffix="RPM"
                   min={0}
                   max={1000}
