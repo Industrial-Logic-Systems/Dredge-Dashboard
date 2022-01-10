@@ -107,7 +107,7 @@ const DredgeTest = () => {
   }, [dredge.extra_data]);
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box className="dashboard-container">
       <h1>{DREDGE_NAME}</h1>
 
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -116,6 +116,8 @@ const DredgeTest = () => {
           <Tab label="Map" {...a11yProps(1)} />
         </Tabs>
       </Box>
+
+      <br />
 
       <TabPanel value={tabIndex} index={0}>
         <Stack
@@ -145,61 +147,56 @@ const DredgeTest = () => {
         </Stack>
         <br />
         <div className="chart-container">
-          <Box sx={{ width: "45%" }}>
-            <TrendLineDisplay
-              name={"Vacuum"}
-              data={trendGraphs}
-              x_axis={"time"}
-              y_axis={"vacuum"}
-              suffix={"IWC"}
-              min={-15}
-              max={0}
-            />
-          </Box>
-          <Box sx={{ width: "45%" }}>
-            <TrendLineDisplay
-              name={"Slurry Density"}
-              data={trendGraphs}
-              x_axis={"time"}
-              y_axis={"slurry_density"}
-              suffix={"sg"}
-              min={1}
-              max={1.6}
-            />
-          </Box>
-          <Box sx={{ width: "45%" }}>
-            <TrendLineDisplay
-              name={"Slurry Velocity"}
-              data={trendGraphs}
-              x_axis={"time"}
-              y_axis={"slurry_velocity"}
-              suffix={"Ft/s"}
-              min={0}
-              max={30}
-            />
-          </Box>
-          <Box sx={{ width: "45%" }}>
-            <TrendLineDisplay
-              name={"Vertical Correction"}
-              data={trendGraphs}
-              x_axis={"time"}
-              y_axis={"vert"}
-              suffix={"Ft"}
-              min={-10}
-              max={30}
-            />
-          </Box>
-          <Box sx={{ width: "45%" }}>
-            <TrendLineDisplay
-              name={"Depth"}
-              data={trendGraphs}
-              x_axis={"time"}
-              y_axis={"depth"}
-              suffix={"Ft"}
-              min={-100}
-              max={100}
-            />
-          </Box>
+          <TrendLineDisplay
+            name={"Vacuum"}
+            data={trendGraphs}
+            x_axis={"time"}
+            y_axis={"vacuum"}
+            suffix={"IWC"}
+            min={-15}
+            max={0}
+          />
+
+          <TrendLineDisplay
+            name={"Slurry Density"}
+            data={trendGraphs}
+            x_axis={"time"}
+            y_axis={"slurry_density"}
+            suffix={"sg"}
+            min={1}
+            max={1.6}
+          />
+
+          <TrendLineDisplay
+            name={"Slurry Velocity"}
+            data={trendGraphs}
+            x_axis={"time"}
+            y_axis={"slurry_velocity"}
+            suffix={"Ft/s"}
+            min={0}
+            max={30}
+          />
+
+          <TrendLineDisplay
+            name={"Vertical Correction"}
+            data={trendGraphs}
+            x_axis={"time"}
+            y_axis={"vert"}
+            suffix={"Ft"}
+            min={-10}
+            max={30}
+          />
+
+          <TrendLineDisplay
+            name={"Depth"}
+            data={trendGraphs}
+            x_axis={"time"}
+            y_axis={"depth"}
+            suffix={"Ft"}
+            min={-100}
+            max={100}
+          />
+
           {trendGraphs.length !== 0 ? (
             <>
               <CompassDisplay

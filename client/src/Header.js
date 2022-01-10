@@ -75,8 +75,8 @@ export default function Header() {
   };
 
   return (
-    <header>
-      <AppBar className={header}>{displayDesktop()}</AppBar>
-    </header>
+    <AppBar position="absolute" className={header}>
+      {displayDesktop()}
+    </AppBar>
   );
 }
