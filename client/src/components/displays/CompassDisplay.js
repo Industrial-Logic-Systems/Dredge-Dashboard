@@ -1,125 +1,55 @@
-import { Box } from "@mui/material";
 import React from "react";
 import "../../styles.css";
 
+function ticks(divisions) {
+  var t = [];
+  for (let i = 0; i < divisions; i++) {
+    t.push(
+      <div
+        className="CompassDisplay-tick"
+        style={{
+          transform: `rotate(${
+            i * (360 / divisions)
+          }deg) translate(-0.02em, 4.5em)`,
+        }}
+      />
+    );
+  }
+  return t;
+}
+
 const CompassDisplay = (props) => {
-  const { name, value } = props;
+  const { name, value, divisions = 8 } = props;
 
   return (
     <div className="CompassDisplay">
-      <Box
-        sx={{
-          width: 150,
-          height: 150,
-          borderRadius: "50%",
-          backgroundColor: "compass.back",
-          outlineStyle: "solid",
-          outlineColor: "black",
-          outlineWidth: 2,
-        }}
-      >
-        <Box
-          sx={{
-            backgroundColor: "compass.dial",
-            position: "absolute",
-            width: 10,
-            height: 10,
-            borderRadius: "50%",
-            transform: "translate(70px, 70px)",
-          }}
-        >
-          <Box
-            className="CompassDisplay-tick"
-            sx={{
-              transform: "rotate(0deg) translate(50%, 300%)",
-            }}
-          />
-          <Box
-            className="CompassDisplay-tick"
-            sx={{
-              transform: "rotate(90deg) translate(-100%, 310%)",
-            }}
-          />
-          <Box
-            className="CompassDisplay-tick"
-            sx={{
-              transform: "rotate(0deg) translate(50%, -350%)",
-            }}
-          />
-          <Box
-            className="CompassDisplay-tick"
-            sx={{
-              transform: "rotate(90deg) translate(-100%, -340%)",
-            }}
-          />
-          <Box
-            className="CompassDisplay-tick"
-            sx={{
-              transform: "rotate(45deg) translate(-50%, -350%)",
-            }}
-          />
-          <Box
-            className="CompassDisplay-tick"
-            sx={{
-              transform: "rotate(-45deg) translate(100%, 315%)",
-            }}
-          />
-          <Box
-            className="CompassDisplay-tick"
-            sx={{
-              transform: "rotate(45deg) translate(-50%, 300%)",
-            }}
-          />
-          <Box
-            className="CompassDisplay-tick"
-            sx={{
-              transform: "rotate(-45deg) translate(100%, -335%)",
-            }}
-          />
-        </Box>
-        <Box
-          sx={{
-            position: "absolute",
-            width: 10,
-            height: 50,
-            backgroundColor: "compass.dial",
-            transformOrigin: "center bottom",
-            transform: `translate(70px,25px) rotate(${value}deg)`,
-          }}
-        >
-          <Box
-            sx={{
-              position: "relative",
-              width: 0,
-              height: 0,
-              borderLeft: "10px solid transparent",
-              borderRight: "10px solid transparent",
-              borderBottom: "20px solid var(--compassDial)",
-              transform: "translate(-5px, -19px)",
-            }}
-          />
-        </Box>
+      <div className="CompassDisplay-body">
+        <div className="CompassDisplay-center">
+          {ticks(divisions)}
+          <div
+            className="CompassDisplay-dial"
+            style={{ transform: `translate(0em, -3.5em) rotate(${value}deg)` }}
+          >
+            <div className="CompassDisplay-dial-arrow" />
+          </div>
+        </div>
         <h3
+          className="CompassDisplay-text"
           style={{
-            position: "absolute",
-            textAlign: "center",
-            width: "150px",
-            transform: "translate(0px, 80px)",
+            transform: "translate(0em, 5.5em)",
           }}
         >
           {value}
         </h3>
         <h3
+          className="CompassDisplay-text"
           style={{
-            position: "absolute",
-            textAlign: "center",
-            width: "150px",
-            transform: "translate(0px, 60px)",
+            transform: "translate(0em, 4.5em)",
           }}
         >
           {name}
         </h3>
-      </Box>
+      </div>
     </div>
   );
 };
