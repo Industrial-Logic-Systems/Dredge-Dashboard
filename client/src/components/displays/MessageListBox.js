@@ -41,7 +41,7 @@ const MessageListBox = (props) => {
   ];
 
   return (
-    <div className="MessageListBox" style={{ height: "370px", width: "100%" }}>
+    <div className="MessageListBox">
       <DataGrid
         columns={columns}
         rows={data}
