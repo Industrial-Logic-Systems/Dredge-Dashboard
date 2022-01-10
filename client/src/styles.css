@@ -157,3 +157,13 @@ body {
   position: absolute;
   left: 88.5%;
 }
+
+.chart-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  gap: 0.5em;
+}

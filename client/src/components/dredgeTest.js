@@ -1,5 +1,5 @@
 import { getDredge } from "../redux/ducks/dredgeSlice";
-import { Grid, Stack, CircularProgress, Box, Tabs, Tab } from "@mui/material";
+import { Stack, CircularProgress, Box, Tabs, Tab } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import Map from "./displays/Map";
 import MessageListBox from "./displays/MessageListBox";
@@ -9,6 +9,8 @@ import StateDisplay from "./displays/StateDisplay";
 import CompassDisplay from "./displays/CompassDisplay";
 import GaugeDisplay from "./displays/GaugeDisplay";
 import { TabPanel, a11yProps } from "./Tabs";
+
+import "../styles.css";
 
 const DredgeTest = () => {
   // Declare Constants
@@ -106,7 +108,7 @@ const DredgeTest = () => {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <h1>Dredge Test</h1>
+      <h1>{DREDGE_NAME}</h1>
 
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={tabIndex} onChange={handleChange}>
@@ -114,36 +116,36 @@ const DredgeTest = () => {
           <Tab label="Map" {...a11yProps(1)} />
         </Tabs>
       </Box>
+
       <TabPanel value={tabIndex} index={0}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Stack
-              direction="row"
-              spacing={2}
-              justifyContent="center"
-              alignItems="center"
-            >
-              {extraData.length !== 0 ? (
-                <>
-                  <StateDisplay
-                    name="Non-Effective"
-                    value={extraData.at(-1).non_eff}
-                    color="success"
-                    secondary_color="error"
-                  />
-                  <StateDisplay
-                    name="Vacuum"
-                    value={extraData.at(-1).vacuum_break}
-                    color="error"
-                    secondary_color="success"
-                  />
-                </>
-              ) : (
-                <CircularProgress />
-              )}
-            </Stack>
-          </Grid>
-          <Grid item xs={12} sm={6}>
+        <Stack
+          direction="row"
+          spacing={2}
+          justifyContent="center"
+          alignItems="center"
+        >
+          {extraData.length !== 0 ? (
+            <>
+              <StateDisplay
+                name="Non-Effective"
+                value={extraData.at(-1).non_eff}
+                color="success"
+                secondary_color="error"
+              />
+              <StateDisplay
+                name="Vacuum"
+                value={extraData.at(-1).vacuum_break}
+                color="error"
+                secondary_color="success"
+              />
+            </>
+          ) : (
+            <CircularProgress />
+          )}
+        </Stack>
+        <br />
+        <div className="chart-container">
+          <Box sx={{ width: "45%" }}>
             <TrendLineDisplay
               name={"Vacuum"}
               data={trendGraphs}
@@ -153,8 +155,8 @@ const DredgeTest = () => {
               min={-15}
               max={0}
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Box>
+          <Box sx={{ width: "45%" }}>
             <TrendLineDisplay
               name={"Slurry Density"}
               data={trendGraphs}
@@ -164,8 +166,8 @@ const DredgeTest = () => {
               min={1}
               max={1.6}
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Box>
+          <Box sx={{ width: "45%" }}>
             <TrendLineDisplay
               name={"Slurry Velocity"}
               data={trendGraphs}
@@ -175,8 +177,8 @@ const DredgeTest = () => {
               min={0}
               max={30}
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Box>
+          <Box sx={{ width: "45%" }}>
             <TrendLineDisplay
               name={"Vertical Correction"}
               data={trendGraphs}
@@ -186,8 +188,8 @@ const DredgeTest = () => {
               min={-10}
               max={30}
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Box>
+          <Box sx={{ width: "45%" }}>
             <TrendLineDisplay
               name={"Depth"}
               data={trendGraphs}
@@ -197,47 +199,35 @@ const DredgeTest = () => {
               min={-100}
               max={100}
             />
-          </Grid>
+          </Box>
           {trendGraphs.length !== 0 ? (
             <>
-              <Grid item xs={12} sm={1.5}>
-                <>
-                  <CompassDisplay
-                    name="Heading"
-                    value={trendGraphs.at(-1).heading}
-                  />
-                </>
-              </Grid>
-              <Grid item xs={12} sm={2.25}>
-                <GaugeDisplay
-                  name="Outlet PSI"
-                  value={trendGraphs.at(-1).outlet_psi}
-                  suffix="PSI"
-                  min={0}
-                  max={100}
-                />
-              </Grid>
-              <Grid item xs={12} sm={2.25}>
-                <GaugeDisplay
-                  name="Pump RPM"
-                  value={trendGraphs.at(-1).pump_rpm}
-                  suffix="RPM"
-                  min={0}
-                  max={1000}
-                />
-              </Grid>
+              <CompassDisplay
+                name="Heading"
+                value={trendGraphs.at(-1).heading}
+              />
+              <GaugeDisplay
+                name="Outlet PSI"
+                value={trendGraphs.at(-1).outlet_psi}
+                suffix="PSI"
+                min={0}
+                max={100}
+              />
+              <GaugeDisplay
+                name="Pump RPM"
+                value={trendGraphs.at(-1).pump_rpm}
+                suffix="RPM"
+                min={0}
+                max={1000}
+              />
             </>
           ) : (
-            <Grid item xs={6}>
-              <CircularProgress />
-            </Grid>
+            <CircularProgress />
           )}
-
-          <Grid item xs={12}>
-            <MessageListBox data={nonEff} />
-          </Grid>
-        </Grid>
+          <MessageListBox data={nonEff} />
+        </div>
       </TabPanel>
+
       <TabPanel value={tabIndex} index={1}>
         <Map positions={positions} />
       </TabPanel>
