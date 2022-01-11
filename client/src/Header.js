@@ -3,33 +3,6 @@ import { makeStyles } from "@mui/styles";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const headersData = [
-  {
-    label: "Dredge Test",
-    href: "/dredge-test",
-  },
-  {
-    label: "Dredge Constellation",
-    href: "/dredge-constellation",
-  },
-  {
-    label: "Dredge Ingenuity",
-    href: "/dredge-ingenuity",
-  },
-  {
-    label: "Dredge Integrity",
-    href: "/dredge-integrity",
-  },
-  {
-    label: "Dredge KellyL",
-    href: "/dredge-kellyl",
-  },
-  {
-    label: "Dredge Ranger",
-    href: "/dredge-ranger",
-  },
-];
-
 const useStyles = makeStyles(() => ({
   header: {
     paddingRight: "40px",
@@ -50,7 +23,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Header() {
+export default function Header(props) {
+  const { headersData } = props;
   const navigate = useNavigate();
   const { header, logo, menuButton, toolbar } = useStyles();
 
