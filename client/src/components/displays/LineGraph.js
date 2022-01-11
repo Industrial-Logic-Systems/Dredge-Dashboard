@@ -25,7 +25,7 @@ const LineGraph = (props) => {
           domain={[data.at(0).time, data.at(-1).time]}
           type="number"
         />
-        <YAxis orientation={"right"} domain={[min, max]} />
+        <YAxis orientation={"right"} width={10} domain={[min, max]} />
         <Tooltip
           labelFormatter={(timeStr) =>
             moment.utc(timeStr).format("MMMM Do YYYY, h:mm:ss a")

@@ -6,6 +6,7 @@ function ticks(divisions) {
   for (let i = 0; i < divisions; i++) {
     t.push(
       <div
+        key={i}
         className="CompassDisplay-tick"
         style={{
           transform: `rotate(${

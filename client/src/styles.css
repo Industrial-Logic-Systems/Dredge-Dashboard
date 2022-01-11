@@ -124,6 +124,7 @@ body {
   height: 3.75em;
   background-color: var(--compassDial);
   transform-origin: center bottom;
+  transition: transform 1s ease-out;
 }
 
 .CompassDisplay-dial-arrow {
@@ -210,7 +211,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   align-content: center;
   gap: 0.5em;
