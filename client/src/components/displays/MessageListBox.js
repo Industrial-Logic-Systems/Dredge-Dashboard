@@ -45,7 +45,7 @@ const MessageListBox = (props) => {
       <DataGrid
         columns={columns}
         rows={data}
-        pageSize={5}
+        pageSize={4}
         rowsPerPageOptions={[5]}
         sortModel={sortModel}
       />
