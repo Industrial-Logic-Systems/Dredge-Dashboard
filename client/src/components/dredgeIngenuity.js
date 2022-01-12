@@ -9,7 +9,7 @@ import StateDisplay from "./displays/StateDisplay";
 import CompassDisplay from "./displays/CompassDisplay";
 import GaugeDisplay from "./displays/GaugeDisplay";
 import { TabPanel, a11yProps } from "./Tabs";
-
+import DredgeDataAggregator from "../DredgeDataAggregator";
 import "../styles.css";
 
 const DredgeIngenuity = () => {
@@ -47,64 +47,14 @@ const DredgeIngenuity = () => {
     return () => clearInterval(interval);
   }, [dispatch]);
 
-  // Update State Variables from Dredge Data
   useEffect(() => {
-    if (dredge.data.constructor === Array) {
-      const positions = dredge.data.map((data) => [
-        data.ch_latitude,
-        data.ch_longitude,
-      ]);
-      positions.reverse();
-      setPositions(positions);
+    const data = DredgeDataAggregator(dredge);
 
-      const graphData = dredge.data.map((data) => {
-        return {
-          time: Date.parse(data.msg_time),
-          vert: data.vert_correction,
-          depth: data.ch_depth,
-          slurry_velocity: data.slurry_velocity,
-          slurry_density: data.slurry_density,
-          vacuum: data.vacuum,
-          heading: data.ch_heading,
-          pump_rpm: data.pump_rpm,
-          outlet_psi: data.outlet_psi,
-        };
-      });
-      graphData.reverse();
-      setTrendGraphs(graphData);
-    }
-  }, [dredge.data]);
-
-  // Update State Variables from NonEff Data
-  useEffect(() => {
-    if (dredge.non_eff.constructor === Array) {
-      const nonEffData = dredge.non_eff.map((non_eff) => {
-        return {
-          sTime: Date.parse(non_eff.msgStart),
-          eTime: Date.parse(non_eff.msgEnd),
-          fCode: non_eff.function_code,
-          msg: non_eff.message,
-          id: non_eff.id,
-        };
-      });
-      nonEffData.reverse();
-      setNonEff(nonEffData);
-    }
-  }, [dredge.non_eff]);
-
-  useEffect(() => {
-    if (dredge.extra_data.constructor === Array) {
-      const eData = dredge.extra_data.map((extra_data) => {
-        return {
-          time: Date.parse(extra_data.timestamp),
-          non_eff: extra_data.non_eff,
-          vacuum_break: extra_data.vacuum_break,
-        };
-      });
-      eData.reverse();
-      setExtraData(eData);
-    }
-  }, [dredge.extra_data]);
+    setPositions(data.positions);
+    setTrendGraphs(data.graphData);
+    setNonEff(data.nonEffData);
+    setExtraData(data.eData);
+  }, [dredge]);
 
   return (
     <Box className="dashboard-container">

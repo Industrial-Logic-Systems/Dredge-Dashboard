@@ -46,7 +46,7 @@ const MessageListBox = (props) => {
         columns={columns}
         rows={data}
         pageSize={4}
-        rowsPerPageOptions={[5]}
+        rowsPerPageOptions={[4]}
         sortModel={sortModel}
       />
     </div>

@@ -3,7 +3,7 @@ import axiosConfig from "../../../axiosConfig";
 export function requestGetDredgeData(name, minutes = 30) {
   const curD = new Date();
   const d = new Date(curD.getTime() - minutes * 60000);
-  const datetime = d.toISOString().slice(0, 19).replace("T", " ");
+  const datetime = d.toISOString();
 
   return axiosConfig.request({
     method: "get",
@@ -21,7 +21,7 @@ export function requestGetDredgeDataLatest(name) {
 export function requestGetDredgeExtra(name, minutes = 30) {
   const curD = new Date();
   const d = new Date(curD.getTime() - minutes * 60000);
-  const datetime = d.toISOString().slice(0, 19).replace("T", " ");
+  const datetime = d.toISOString();
 
   return axiosConfig.request({
     method: "get",
