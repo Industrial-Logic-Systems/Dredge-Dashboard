@@ -48,9 +48,16 @@ const fCodeToMsg = {
 
 const app = express();
 
+var RateLimit = require("express-rate-limit");
+var limiter = new RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20, // limit each IP to 20 requests per windowMs
+});
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(limiter);
 
 MongoClient.connect("mongodb://localhost:27017/dredge")
   .then((client) => {
