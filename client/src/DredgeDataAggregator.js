@@ -48,6 +48,7 @@ export default function DredgeDataAggregator(dredge) {
     data.nonEffData = nonEffData;
   }
 
+  // Update State Variables from Extra Data
   if (dredge.extra_data.constructor === Array) {
     const eData = dredge.extra_data.map((extra_data) => {
       return {
