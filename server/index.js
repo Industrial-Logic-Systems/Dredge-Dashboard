@@ -48,16 +48,17 @@ const fCodeToMsg = {
 
 const app = express();
 
-var RateLimit = require("express-rate-limit");
-var limiter = new RateLimit({
+const rateLimit = require("express-rate-limit");
+var limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
-  max: 20, // limit each IP to 20 requests per windowMs
+  max: 100, // limit each IP requests per windowMs
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 });
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(limiter);
+app.use("/api", limiter);
 
 MongoClient.connect("mongodb://localhost:27017/dredge")
   .then((client) => {
@@ -108,7 +109,7 @@ MongoClient.connect("mongodb://localhost:27017/dredge")
             comment: data.comment.trim(),
           })
           .then((result) => {
-            console.log(result);
+            //console.log(result);
           })
           .catch((err) => {
             console.log(err);
@@ -133,7 +134,7 @@ MongoClient.connect("mongodb://localhost:27017/dredge")
             comment: data.comment.trim(),
           })
           .then((result) => {
-            console.log(result);
+            //console.log(result);
           })
           .catch((err) => {
             console.log(err);
@@ -151,7 +152,7 @@ MongoClient.connect("mongodb://localhost:27017/dredge")
           collection
             .insertOne(element)
             .then((result) => {
-              console.log(result);
+              //console.log(result);
             })
             .catch((err) => {
               console.log(err);
@@ -179,7 +180,7 @@ MongoClient.connect("mongodb://localhost:27017/dredge")
           timestamp: new Date(Date.parse(content.timestamp + " UTC")),
         })
         .then((result) => {
-          console.log(result);
+          //console.log(result);
         })
         .catch((err) => {
           console.log(err);
