@@ -51,14 +51,14 @@ const app = express();
 const rateLimit = require("express-rate-limit");
 var limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
-  max: 100, // limit each IP requests per windowMs
+  max: 200, // limit each IP requests per windowMs
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 });
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use("/api", limiter);
+app.use(limiter);
 
 MongoClient.connect("mongodb://localhost:27017/dredge")
   .then((client) => {
