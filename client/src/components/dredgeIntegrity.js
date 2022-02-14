@@ -11,6 +11,7 @@ import GaugeDisplay from "./displays/GaugeDisplay";
 import { TabPanel, a11yProps } from "./Tabs";
 import DredgeDataAggregator from "../DredgeDataAggregator";
 import "../styles.css";
+import moment from "moment";
 
 const DredgeIntegrity = () => {
   // Declare Constants
@@ -89,6 +90,13 @@ const DredgeIntegrity = () => {
                 value={extraData.at(-1).vacuum_break}
                 color="error"
                 secondary_color="success"
+              />
+              <StateDisplay
+                name={`MSG Time: ${moment
+                  .utc(extraData.at(-1).time)
+                  .format("MMMM Do YYYY, h:mm:ss a")}`}
+                value={true}
+                color="success"
               />
             </>
           ) : (
